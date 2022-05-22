@@ -1,0 +1,57 @@
+<div class="container ">
+    <h1 appClassToggle [backgroundColor]=" 'black' " [color]=" 'white' ">Angular pagination</h1>
+    <nav class="container border ">
+
+        <ul class="pagination d-flex p-2 justify-content-center">
+            <li class="page-item"
+            [ngClass]="{disabled:currentPage==0}"
+            >
+                <a (click)="currentPage=currentPage-1" class="page-link" href="#" >
+                    Prev
+                </a>
+            </li>
+            <li class="page-item"
+            [appNgClass]="{active:i===currentPage}"
+            
+            *ngFor="let image of images;let i=index;"
+            [style.display]="getDisplay(i)"
+            ><a (click)="currentPage=i" class="page-link" href="#">{{i+1}}</a></li>
+
+            <li class="page-item"
+            [ngClass]="{disabled:currentPage==images.length-1}"
+            >
+                <a (click)="currentPage=currentPage+1" class="page-link" href="#">
+                    Next
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- Page content -->
+    <div class="border m-2 p-3">
+        <div class="container  text-center"  >
+            <h4 appClassToggle [backgroundColor]=" 'green' " [color]=" 'white' ">{{images[currentPage].title}}</h4>
+            <img  [src]="images[currentPage].imageUrl" alt="" style="width: 800px;">
+        </div>
+        <div>
+            <p class="text-justify pt-2">{{images[currentPage].imageDescription}} </p>
+        </div>
+    </div>
+<!-- ngSwitch -->
+<div [ngSwitch]="currentPage">
+    <div *ngSwitchCase="0">
+        This page is the first page
+    </div>
+    <div *ngSwitchCase="images.length-1">
+        This is the last page!
+    </div>
+    <div *ngSwitchDefault>
+        The page between first and last page!
+    </div>
+</div>
+
+</div>
+<!-- appNgFor -->
+<ol *appNgFor="5;let i=index;">
+    <li>I will be add here! - {{i}}</li>
+</ol>
+
